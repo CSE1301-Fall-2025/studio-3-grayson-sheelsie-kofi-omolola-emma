@@ -2,37 +2,42 @@ import java.util.Scanner;
 import java.lang.Math;
 
 public class Sieve {
-    public static void main(String[] arcs) {
-    Scanner input = new Scanner(System.in);
+    public static void main(String[] args)
+    {
+        Scanner input = new Scanner(System.in);
 
 
-    System.out.print("Enter a number ");
-    int n = input.nextInt();
+        System.out.print("Enter a number: ");
+        int n = input.nextInt();
 
-    int [] sieveArray = new int[n];
+        int [] sieveArray = new int[n+1];
 
-    for (int i = 1; i < n; i++) {
-        sieveArray[i] = i+1;
-        System.out.println(sieveArray[i]);
-    }
-        
-    boolean [] sieveBooleanArray = new boolean[n];
-
-    for (int i = 1; i < n; i++) {
-        sieveBooleanArray[i] = true;
-        // System.out.println(sieveBooleanArray[i]);
-
-        if (sieveBooleanArray[i] == true) {
+        for (int i = 0; i <= n; i++) {
+            sieveArray[i] = i;
+        }
             
-            for (int j = i*i; i*i < n; j+=i) {
+        boolean [] sieveBooleanArray = new boolean[n+1];
 
-                sieveBooleanArray[j] = false;
-                System.out.println(sieveBooleanArray[j]);
+        for(int i = 2; i <= n; i++) {
+            sieveBooleanArray[i] = true;
+        }
 
+        for (int i = 2; i <= n; i++) {
+            if (sieveBooleanArray[i]) {
+                for (int j = i*i; j <= n; j+=i) {
+                    sieveBooleanArray[j] = false;
+                }
             }
         }
 
-    }
+        System.out.print("Primes up to " + n + ": ");
 
+        for(int i = 2; i <= n; i++) {
+            if(sieveBooleanArray[i]) {
+                System.out.print(sieveArray[i] + " ");
+            }
+        }
+
+        input.close();
     }
 }
